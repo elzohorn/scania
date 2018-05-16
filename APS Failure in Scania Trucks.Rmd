@@ -1,7 +1,7 @@
 ---
 title: "APS Failure in Scania Trucks"
 author: "Group 1"
-date: '`r format(Sys.time(), "%d, %B, %Y")`'
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: bookdown::gitbook
 ---
 
@@ -25,7 +25,7 @@ To properly import the information it is needed to identify 'na' as #NA values.
 
 ```{r }
 #Read file with column headers and force "na" as NA
-training_set <- read.csv("~/RStudio/aps-failure-at-scania-trucks/aps_failure_training_set.csv", header=TRUE, na.strings="na", stringsAsFactors = FALSE)
+training_set <- read.csv("aps_failure_training_set.csv", header=TRUE, na.strings="na", stringsAsFactors = FALSE)
 head(training_set [1:17], 5)
 ```
 
