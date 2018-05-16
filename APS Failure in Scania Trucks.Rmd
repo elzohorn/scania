@@ -1,0 +1,53 @@
+---
+title: "APS Failure in Scania Trucks"
+author: "Group 1"
+date: '`r format(Sys.time(), "%d, %B, %Y")`'
+output: bookdown::gitbook
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2);
+```
+
+## Introduction of Scania Air Pressure system case
+
+The dataset consists of data collected from heavy Scania trucks in everyday usage. The system in focus is the **Air Pressure system (APS)** which generates pressurised air that are utilized in various functions in a truck, such as braking and gear changes.
+The data consists of a subset of all available data, selected by experts.
+The **positive** class consists of component failures for a specific component of the APS system. 
+The **negative** class consists of trucks with failures for components not related to the APS.      
+For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+## Data load and cleaning
+The data source consist in a csv file that contains many missing vales references as 'na'.
+To properly import the information it is needed to identify 'na' as #NA values.
+
+
+```{r }
+#Read file with column headers and force "na" as NA
+training_set <- read.csv("~/RStudio/aps-failure-at-scania-trucks/aps_failure_training_set.csv", header=TRUE, na.strings="na", stringsAsFactors = FALSE)
+head(training_set [1:17], 5)
+```
+
+
+## Data Transformation
+It has been identified that when a histogram value is missing all the remaining values are also missing.
+```{r }
+#if histogram are missing only 4 out of 671 rows are faulty
+qplot(as.factor(training_set[is.na(training_set$ag_000),]$class), xlab = "class")
+
+```
+
+
+```{r , echo=FALSE}
+#if histogram are missing only 4 out of 671 rows are faulty
+training_set = training_set[!is.na(training_set$ag_000),] 
+```
+
+
+```{r , echo=FALSE}
+# visualize class value distributions
+qplot(as.factor(training_set$class), xlab = "class")
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
